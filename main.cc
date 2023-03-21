@@ -3,8 +3,8 @@
 #include "stack.h"
 
 int twice(int x) { return 2 * x; }
-bool isEven(int x) { return x % 2 == 0; }
 int sum(int a, int b) { return a + b; }
+bool isEven(int x) { return x % 2 == 0; }
 
 // we've given you some sample code to start out with
 // but this is by no means a comprehensive demonstration of the class
@@ -12,7 +12,6 @@ int sum(int a, int b) { return a + b; }
 int main() {
   // creates a stack initialized with these values
   Stack s1({1, 2, 3, 4, 5});
-  // prints out the stack
   std::cout << s1 << std::endl;
 
   // filters the stack
@@ -26,6 +25,7 @@ int main() {
   // reduces the stack
   std::cout << s1.reduce(sum, 0) << std::endl;
 
+  // creates a stack initialized with these values
   Stack s2({5, 4, 3, 2, 1});
   std::cout << s2 << std::endl;
 

