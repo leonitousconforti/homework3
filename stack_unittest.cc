@@ -39,6 +39,23 @@ TEST_F(StackTest, Sort) {
   EXPECT_EQ(s.pop(), 9);
 }
 
+TEST_F(StackTest, Reverse) {
+  Stack s{1, 2, 3, 4, 5};
+  s.reverse();
+  EXPECT_EQ(s.pop(), 5);
+  EXPECT_EQ(s.pop(), 4);
+  EXPECT_EQ(s.pop(), 3);
+  EXPECT_EQ(s.pop(), 2);
+  EXPECT_EQ(s.pop(), 1);
+}
+
+TEST_F(StackTest, Filter) {
+  Stack s{1, 2, 3, 4, 5};
+  s.filter([](int x) { return x % 2 == 0; });
+  EXPECT_EQ(s.pop(), 2);
+  EXPECT_EQ(s.pop(), 4);
+}
+
 TEST_F(StackTest, Map) {
   Stack s{1, 2, 3, 4, 5};
   s.map([](int x) { return x * x; });
