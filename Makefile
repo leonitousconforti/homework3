@@ -1,6 +1,6 @@
 CXX=g++
 CXXFLAGS = -std=c++14 -g
-DEP_DIR= ../dependencies
+DEP_DIR= ./homework-3-master/dependencies
 
 all: stack_unittest stack
 
