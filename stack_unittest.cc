@@ -143,3 +143,21 @@ TEST_F(StackTest, Reduce) {
   int sum = s.reduce([](int acc, int x) { return acc + x; }, 0);
   EXPECT_EQ(sum, 15);
 }
+
+TEST_F(StackTest, BracketOperator) {
+  Stack s(5);
+  s.push(1);
+  s.push(2);
+  s.push(3);
+  s.push(4);
+  s.push(5);
+  EXPECT_EQ(s[0], 5);
+  EXPECT_EQ(s[1], 4);
+  EXPECT_EQ(s[2], 3);
+  EXPECT_EQ(s[3], 2);
+  EXPECT_EQ(s[4], 1);
+  s.pop();
+  EXPECT_EQ(s[0], 4);
+  EXPECT_EQ(s[2], 2);
+  EXPECT_THROW(s[4], std::out_of_range);
+}
