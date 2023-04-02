@@ -22,6 +22,25 @@ TEST_F(StackTest, PushAndPop) {
   EXPECT_EQ(s.pop(), 1);
 }
 
+TEST_F(StackTest, Peek) {
+  Stack s(5);
+  EXPECT_NO_THROW(s.push(1));
+  EXPECT_NO_THROW(s.push(2));
+  EXPECT_NO_THROW(s.push(3));
+  EXPECT_NO_THROW(s.push(4));
+  EXPECT_NO_THROW(s.push(5));
+  EXPECT_EQ(s.peek(), 5);
+  EXPECT_EQ(s.peek(), 5);
+  EXPECT_EQ(s.peek(), 5);
+  EXPECT_EQ(s.pop(), 5);
+  EXPECT_EQ(s.pop(), 4);
+  EXPECT_EQ(s.pop(), 3);
+  EXPECT_EQ(s.peek(), 2);
+  EXPECT_EQ(s.peek(), 2);
+  EXPECT_EQ(s.peek(), 2);
+  EXPECT_EQ(s.pop(), 2);
+}
+
 TEST_F(StackTest, IsEmptyAndSize) {
   Stack s;
   EXPECT_TRUE(s.isEmpty());
