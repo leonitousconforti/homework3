@@ -8,6 +8,38 @@ class StackTest : public ::testing::Test {
   void TearDown() {}
 };
 
+TEST_F(StackTest, isFullAndCapacity) {
+  Stack s(5);
+  EXPECT_EQ(s.getCapacity(), 5);
+  s.push(1);
+  s.push(2);
+  s.push(3);
+  s.push(4);
+  EXPECT_FALSE(s.isFull());
+  s.push(5);
+  EXPECT_TRUE(s.isFull());
+  s.pop();
+  EXPECT_FALSE(s.isFull());
+  s.updateCapacity(10);
+  s.push(5);
+  EXPECT_FALSE(s.isFull());
+  s.push(6);
+  EXPECT_FALSE(s.isFull());
+  EXPECT_EQ(s.getCapacity(), 10);
+}
+
+TEST_F(StackTest, ClearAndEmpty) {
+  Stack s(5);
+  s.push(1);
+  s.push(2);
+  s.push(3);
+  s.push(4);
+  s.push(5);
+  EXPECT_FALSE(s.isEmpty());
+  s.clear();
+  EXPECT_TRUE(s.isEmpty());
+}
+
 TEST_F(StackTest, PushAndPop) {
   Stack s(5);
   EXPECT_NO_THROW(s.push(1));
@@ -24,11 +56,11 @@ TEST_F(StackTest, PushAndPop) {
 
 TEST_F(StackTest, Peek) {
   Stack s(5);
-  EXPECT_NO_THROW(s.push(1));
-  EXPECT_NO_THROW(s.push(2));
-  EXPECT_NO_THROW(s.push(3));
-  EXPECT_NO_THROW(s.push(4));
-  EXPECT_NO_THROW(s.push(5));
+  s.push(1);
+  s.push(2);
+  s.push(3);
+  s.push(4);
+  s.push(5);
   EXPECT_EQ(s.peek(), 5);
   EXPECT_EQ(s.peek(), 5);
   EXPECT_EQ(s.peek(), 5);
@@ -39,6 +71,21 @@ TEST_F(StackTest, Peek) {
   EXPECT_EQ(s.peek(), 2);
   EXPECT_EQ(s.peek(), 2);
   EXPECT_EQ(s.pop(), 2);
+}
+
+TEST_F(StackTest, IndexOf) {
+  Stack s(5);
+  s.push(1);
+  s.push(2);
+  s.push(3);
+  s.push(4);
+  s.push(5);
+  EXPECT_EQ(s.indexOf(5), 0);
+  EXPECT_EQ(s.indexOf(3), 2);
+  s.pop();
+  EXPECT_EQ(s.indexOf(5), -1);
+  EXPECT_EQ(s.indexOf(4), 0);
+  EXPECT_EQ(s.indexOf(2), 2);
 }
 
 TEST_F(StackTest, IsEmptyAndSize) {
