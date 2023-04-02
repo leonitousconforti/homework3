@@ -161,3 +161,33 @@ TEST_F(StackTest, BracketOperator) {
   EXPECT_EQ(s[2], 2);
   EXPECT_THROW(s[4], std::out_of_range);
 }
+
+TEST_F(StackTest, EqualsOperator) {
+  Stack s1(5);
+  s1.push(1);
+  s1.push(2);
+  s1.push(3);
+  s1.push(4);
+  s1.push(5);
+
+  Stack s2(5);
+  s2.push(1);
+  s2.push(2);
+  s2.push(3);
+  s2.push(4);
+  s2.push(5);
+
+  EXPECT_TRUE(s1 == s1);
+}
+
+TEST_F(StackTest, EqualsAssignemntOperator) {
+  Stack s1(5);
+  s1.push(1);
+  s1.push(2);
+  s1.push(3);
+  s1.push(4);
+  s1.push(5);
+
+  Stack s2 = s1;
+  EXPECT_TRUE(s1 == s2);
+}
