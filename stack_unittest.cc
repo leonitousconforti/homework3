@@ -9,9 +9,15 @@ class StackTest : public ::testing::Test {
 };
 
 TEST_F(StackTest, PushAndPop) {
-  Stack s;
-  s.push(1);
-  s.push(2);
+  Stack s(5);
+  EXPECT_NO_THROW(s.push(1));
+  EXPECT_NO_THROW(s.push(2));
+  EXPECT_NO_THROW(s.push(3));
+  EXPECT_NO_THROW(s.push(4));
+  EXPECT_NO_THROW(s.push(5));
+  EXPECT_EQ(s.pop(), 5);
+  EXPECT_EQ(s.pop(), 4);
+  EXPECT_EQ(s.pop(), 3);
   EXPECT_EQ(s.pop(), 2);
   EXPECT_EQ(s.pop(), 1);
 }
