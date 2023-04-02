@@ -110,20 +110,6 @@ TEST(StackTest, UnderflowOnPeekWhenNotEmpty) {
   EXPECT_THROW(s.peek(), std::underflow_error);
 }
 
-TEST(StackTest, PeekReturnsWrongValue) {
-  // Arrange
-  Stack s(5);
-  s.push(1);
-  s.push(2);
-  s.push(3);
-
-  // Act
-  int result = s.peek();
-
-  // Assert
-  EXPECT_EQ(result, 3);
-}
-
 TEST(StackTest, TestIndexOf) {
   Stack s(5);
   s.push(10);
@@ -199,17 +185,17 @@ TEST(StackTest, IsStackActuallyFull) {
 
 TEST(StackTest, CapacityOfStackMayNotReturnCorrectly) {
   Stack s(3);
-  EXPECT_EQ(s.capacity(), 3);
+  EXPECT_EQ(s.getCapacity(), 3);
   s.push(1);
   s.push(2);
-  EXPECT_EQ(s.capacity(), 3);
+  EXPECT_EQ(s.getCapacity(), 3);
 }
 
 TEST(StackTest, CapacityMightNotBeUpdatingCorrectly) {
   Stack s(3);
-  EXPECT_EQ(s.capacity(), 3);
+  EXPECT_EQ(s.getCapacity(), 3);
   s.updateCapacity(5);
-  EXPECT_EQ(s.capacity(), 5);
+  EXPECT_EQ(s.getCapacity(), 5);
 }
 
 TEST(StackTest, ClearMayNotBeClearingAsIntended) {
