@@ -97,7 +97,7 @@ TEST(StackTest, OverflowEvenThoughCapacityNotReached) {
 }
 
 TEST(StackTest, UnderflowOnPeekWhenNotEmpty) {
-  Stack<int> s(3);
+  Stack s(3);
   s.push(1);
   s.push(2);
   s.push(3);
@@ -125,7 +125,7 @@ TEST(StackTest, PeekReturnsWrongValue) {
 }
 
 TEST(StackTest, TestIndexOf) {
-  Stack<int> s(5);
+  Stack s(5);
   s.push(10);
   s.push(20);
   s.push(30);
@@ -140,7 +140,7 @@ TEST(StackTest, TestIndexOf) {
 }
 
 TEST(StackTest, OverflowWhenCapacityNotReached) {
-  Stack<int> s(3);
+  Stack s(3);
   s.push(1);
   s.push(2);
   s.push(3);
@@ -148,14 +148,14 @@ TEST(StackTest, OverflowWhenCapacityNotReached) {
 }
 
 TEST(StackTest, UnderflowWhenPeekNotEmpty) {
-  Stack<int> s(3);
+  Stack s(3);
   s.push(1);
   EXPECT_EQ(s.peek(), 1);
   EXPECT_THROW(s.peek(), std::underflow_error);
 }
 
 TEST(StackTest, PeekReturnsWrongValue) {
-  Stack<int> s(3);
+  Stack s(3);
   s.push(1);
   EXPECT_EQ(s.peek(), 1);
   s.push(2);
@@ -163,7 +163,7 @@ TEST(StackTest, PeekReturnsWrongValue) {
 }
 
 TEST(StackTest, IndexOfNotWorkingProperly) {
-  Stack<int> s(5);
+  Stack s(5);
   s.push(1);
   s.push(2);
   s.push(3);
@@ -173,14 +173,14 @@ TEST(StackTest, IndexOfNotWorkingProperly) {
 }
 
 TEST(StackTest, IndexOfReturnsWrongValueWhenValueNotFound) {
-  Stack<int> s(5);
+  Stack s(5);
   s.push(1);
   s.push(2);
   EXPECT_EQ(s.indexOf(3), -1);
 }
 
 TEST(StackTest, IndexOfSometimesReturnsWrongValue) {
-  Stack<int> s(5);
+  Stack s(5);
   s.push(1);
   s.push(2);
   s.push(3);
@@ -190,7 +190,7 @@ TEST(StackTest, IndexOfSometimesReturnsWrongValue) {
 }
 
 TEST(StackTest, IsStackActuallyFull) {
-  Stack<int> s(3);
+  Stack s(3);
   s.push(1);
   s.push(2);
   s.push(3);
@@ -198,7 +198,7 @@ TEST(StackTest, IsStackActuallyFull) {
 }
 
 TEST(StackTest, CapacityOfStackMayNotReturnCorrectly) {
-  Stack<int> s(3);
+  Stack s(3);
   EXPECT_EQ(s.capacity(), 3);
   s.push(1);
   s.push(2);
@@ -206,14 +206,14 @@ TEST(StackTest, CapacityOfStackMayNotReturnCorrectly) {
 }
 
 TEST(StackTest, CapacityMightNotBeUpdatingCorrectly) {
-  Stack<int> s(3);
+  Stack s(3);
   EXPECT_EQ(s.capacity(), 3);
   s.updateCapacity(5);
   EXPECT_EQ(s.capacity(), 5);
 }
 
 TEST(StackTest, ClearMayNotBeClearingAsIntended) {
-  Stack<int> s(3);
+  Stack s(3);
   s.push(1);
   s.push(2);
   s.push(3);
@@ -222,14 +222,14 @@ TEST(StackTest, ClearMayNotBeClearingAsIntended) {
 }
 
 TEST(StackTest, LeftBranchOffByOne) {
-  Stack<int> s(3);
+  Stack s(3);
   EXPECT_FALSE(s.isFull());
   EXPECT_TRUE(s.isEmpty());
   EXPECT_EQ(s.size(), 0);
 }
 
 TEST(StackTest, SortFunctionGoesPastEndOfArray) {
-  Stack<int> s(5);
+  Stack s(5);
   s.push(5);
   s.push(2);
   s.push(7);
