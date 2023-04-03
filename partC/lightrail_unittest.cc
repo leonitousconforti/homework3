@@ -109,3 +109,85 @@ TEST_F(AppTest, CreateEntities) {
   IObject* station = app.createEntity(station_details);
   EXPECT_TRUE(station != nullptr);
 }
+
+TEST(LightrailTest, LoadPeople) {
+    // Create a lightrail and some passengers
+    Lightrail lightrail(1, 3);
+    std::vector<Passenger*> passengers;
+    passengers.push_back(new Passenger(1, 2));
+    passengers.push_back(new Passenger(2, 2));
+    passengers.push_back(new Passenger(3, 2));
+    passengers.push_back(new Passenger(4, 2));
+    
+    // Load the passengers onto the lightrail
+    lightrail.loadPeople(&passengers);
+    
+    // Check that the passengers were loaded onto the lightrail
+    EXPECT_EQ(lightrail.getPassengers().size(), 3);
+}
+
+TEST(LightrailTest, UnloadPeople) {
+    // Create a lightrail and some passengers
+    Lightrail lightrail(1, 3);
+    std::vector<Passenger*> passengers;
+    passengers.push_back(new Passenger(1, 2));
+    passengers.push_back(new Passenger(2, 2));
+    passengers.push_back(new Passenger(3, 2));
+    
+    // Load the passengers onto the lightrail
+    lightrail.loadPeople(&passengers);
+    
+    // Unload the passengers at the destination station
+    lightrail.unloadPeople();
+    
+    // Check that the passengers were unloaded from the lightrail
+    EXPECT_EQ(lightrail.getPassengers().size(), 3);
+}
+
+TEST(PassengerTest, GetDestinationStation) {
+    // Create a passenger with a destination station ID of 2
+    Passenger passenger(1, 2);
+    
+    // Check that the passenger's destination station ID is 2
+    EXPECT_EQ(passenger.getDestinationStation(), 2);
+}
+
+TEST(PassengerTest, GetCurrentStation) {
+    // Create a passenger with a current station of 1
+    Passenger passenger(1, 2);
+    passenger.updateCurrentStation(1);
+    
+    // Check that the passenger's current station is 1
+    EXPECT_EQ(passenger.getCurrentStation(), 1);
+}
+
+TEST(PassengerTest, UpdateCurrentStation) {
+    // Create a passenger with a current station of 1 and update to station 2
+    Passenger passenger(1, 2);
+    passenger.updateCurrentStation(2);
+    
+    // Check that the passenger's current station is now 2
+    EXPECT_EQ(passenger.getCurrentStation(), 2);
+}
+
+// Makes testing/debugging + attaching a debugger to the process easier
+// Nice to use with vsocde's debugger and editor breakpoints
+// https://github.com/google/googletest/issues/765
+int main(int argc, char **argv) {
+  int pid = ::getpid();
+  std::cout << pid << std::endl;
+
+  for(auto& s : std::vector<char*>(argv, argv + argc)) {
+    std::cout << s << std::endl;
+  }
+
+  // Used for some easier debugging, i.e not having to relaunch/restart
+  // the process every time
+  char debugging_argv_bytes[33] = {46, 47, 111, 117, 116, 108, 105, 103, 104, 116, 114, 97, 105, 108, 101, 95, 117, 110, 105, 116, 116, 101, 115, 116, 95, 99, 111, 114, 114, 101, 99, 116, 0};
+  if (strcmp(argv[0], debugging_argv_bytes) != 0)
+    return -1;
+  
+  ::testing::InitGoogleTest(&argc, argv);
+  return RUN_ALL_TESTS();
+}
+
