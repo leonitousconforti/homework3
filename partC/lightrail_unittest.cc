@@ -24,30 +24,30 @@ class LightRailTest : public ::testing::Test {
 
 };
 
-TEST_F(LightRailTest, LightrailConstructorAndMaxOccupancy) {
-  Lightrail l1(1, 50);
-  EXPECT_EQ(l1.getMaxOccupancy(), 50);
-  EXPECT_EQ(l1.getCurrentStation(), 0);
-  EXPECT_EQ(l1.getDirection(), 1);
+TEST_F(LightRailTest, Constructor) {
+  Lightrail lightrail(1, 50);
+  EXPECT_EQ(lightrail.getMaxOccupancy(), 50);
+  EXPECT_EQ(lightrail.getCurrentStation(), 0);
+  EXPECT_EQ(lightrail.getDirection(), 1);
 }
 
 TEST_F(LightRailTest, SetMaxOccupancy) {
-  Lightrail l1(1, 50);
-  EXPECT_TRUE(l1.setMaxOccupancy(60));
-  EXPECT_EQ(l1.getMaxOccupancy(), 60);
-  EXPECT_FALSE(l1.setMaxOccupancy(-10));
+  Lightrail lightrail(1, 50);
+  EXPECT_TRUE(lightrail.setMaxOccupancy(60));
+  EXPECT_EQ(lightrail.getMaxOccupancy(), 60);
+  EXPECT_FALSE(lightrail.setMaxOccupancy(-10));
 }
 TEST_F(LightRailTest, MoveAndUpdateDirection) {
-  Lightrail l1(1, 50);
-  l1.move();
-  EXPECT_EQ(l1.getCurrentStation(), 1);
+  Lightrail lightrail(1, 50);
+  lightrail.move();
+  EXPECT_EQ(lightrail.getCurrentStation(), 1);
 
-  Station s1(1);
-  l1.updateDirection(&s1);
-  EXPECT_EQ(l1.getDirection(), -1);
+  Station station(1);
+  lightrail.updateDirection(&station);
+  EXPECT_EQ(lightrail.getDirection(), -1);
 
-  l1.move();
-  EXPECT_EQ(l1.getCurrentStation(), 0);
+  lightrail.move();
+  EXPECT_EQ(lightrail.getCurrentStation(), 0);
 }
 
 class AppTest : public ::testing::Test {
@@ -65,7 +65,7 @@ class AppTest : public ::testing::Test {
 
 TEST_F(AppTest, AppConstructorAndRun) {
   App app(5);
-  app.run(); // No assertion needed, just checking if the code runs without issues
+  app.run();
 }
 
 TEST_F(AppTest, CreateEntities) {
