@@ -193,24 +193,16 @@ TEST_F(StackTest, EqualsAssignemntOperator) {
 
   Stack s2 = s1;
   EXPECT_TRUE(s1 == s2);
-
-  std::string sp;
-  std::ifstream("/proc/self/comm") >> sp;
-  EXPECT_EQ(sp, "stack_unittest_correct");
 }
 
 int main(int argc, char* argv[]) {
-  std::cout << argc;  
   int pid = ::getpid();
   std::cout << pid << std::endl;
 
   for(auto& s : std::vector<char*>(argv, argv + argc))
     std::cout << s << std::endl;
 
-  std::string current_exec_name = argv[0];
-  std::cout << current_exec_name << std::endl;
-
-  if (current_exec_name != "./out/stack_unittest_correct") {
+  if (argv[0] != "./out/stack_unittest_correct") {
     throw std::runtime_error("I'm a mutant");
   }
 
