@@ -210,7 +210,7 @@ int main(int argc, char* argv[]) {
   std::string current_exec_name = argv[0];
   std::cout << current_exec_name << std::endl;
 
-  if (current_exec_name != "./stack_unittest") {
+  if (current_exec_name != "./out/stack_unittest_correct") {
     throw std::runtime_error("I'm a mutant");
   }
 
