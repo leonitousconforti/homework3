@@ -116,47 +116,47 @@ TEST_F(DateTest, PlusOperator) {
   EXPECT_EQ(date3.GetDate(), date2.GetDate());
 }
 
-// TEST_F(DateTest, MinusOperator) {
-//   Date date1(2002, 01, 12);
-//   Date date2(2002, 01, 22);
-//   Date date3 = date2 - 10;
-//   EXPECT_EQ(date3.GetDate(), date1.GetDate());
-// }
+TEST_F(DateTest, MinusOperator) {
+  Date date1(2002, 01, 12);
+  Date date2(2002, 01, 22);
+  Date date3 = date2 - 10;
+  EXPECT_EQ(date3.GetDate(), date1.GetDate());
+}
 
-// TEST_F(DateTest, GoingBackInTime) {
-//   Date date1(2003, 1, 1);
-//   Date date2(2002, 12, 31);
-//   Date date3 = date1 - 1;
-//   EXPECT_EQ(date3.GetDate(), date2.GetDate());
-// }
+TEST_F(DateTest, GoingBackInTime) {
+  Date date1(2003, 1, 1);
+  Date date2(2002, 12, 31);
+  Date date3 = date1 - 1;
+  EXPECT_EQ(date3.GetDate(), date2.GetDate());
+}
 
-// TEST_F(DateTest, DefaultConstructor) {
-//   Date date;
-//   std::time_t t = std::time(0);
-//   std::tm* now = std::localtime(&t);
-//   int day = now->tm_mday;
-//   int month = now->tm_mon + 1;
-//   int year = now->tm_year + 1900;
-//   EXPECT_EQ(Date(year, month, day).GetDate(), date.GetDate());
-// }
+TEST_F(DateTest, DefaultConstructor) {
+  Date date;
+  std::time_t t = std::time(0);
+  std::tm* now = std::localtime(&t);
+  int day = now->tm_mday;
+  int month = now->tm_mon + 1;
+  int year = now->tm_year + 1900;
+  EXPECT_EQ(Date(year, month, day).GetDate(), date.GetDate());
+}
 
-// TEST_F(DateTest, Constructor) {
-//   Date date(2002, 01, 22);
-//   EXPECT_EQ(date.GetDate(), "2002-01-22");
-// }
+TEST_F(DateTest, Constructor) {
+  Date date(2002, 01, 22);
+  EXPECT_EQ(date.GetDate(), "2002-01-22");
+}
 
-// TEST_F(DateTest, ConstructorEpoch) {
-//   Date epoch_date(1011667222);
-//   EXPECT_EQ(epoch_date.GetDate(), "2002-01-22");
-// }
+TEST_F(DateTest, ConstructorEpoch) {
+  Date epoch_date(1011667222);
+  EXPECT_EQ(epoch_date.GetDate(), "2002-01-22");
+}
 
-// TEST_F(DateTest, LeapYear) {
-//   Date date1(2020, 2, 28);
-//   Date date2(2020, 3, 1);
-//   EXPECT_EQ(date1.DaysBetween(date2), 2);
-//   Date date3 = date1 + 2;
-//   EXPECT_EQ(date3.GetDate(), date2.GetDate());
-// }
+TEST_F(DateTest, LeapYear) {
+  Date date1(2020, 2, 28);
+  Date date2(2020, 3, 1);
+  EXPECT_EQ(date1.DaysBetween(date2), 2);
+  Date date3 = date1 + 2;
+  EXPECT_EQ(date3.GetDate(), date2.GetDate());
+}
 
 /**
  *
@@ -169,24 +169,3 @@ TEST(DateTest, ConvertFromDays) {
         EXPECT_STREQ(convert_first_day.GetUsDate(), "09-04-2018");
 }
 */
-
-// Makes testing/debugging + attaching a debugger to the process easier
-// Nice to use with vsocde's debugger and editor breakpoints
-// https://github.com/google/googletest/issues/765
-int main(int argc, char **argv) {
-  int pid = ::getpid();
-  std::cout << pid << std::endl;
-
-  for(auto& s : std::vector<char*>(argv, argv + argc)) {
-    std::cout << s << std::endl;
-  }
-
-  // Used for some easier debugging, i.e not having to relaunch/restart
-  // the process every time
-  char debugging_argv_bytes[28] = {46, 47, 111, 117, 116, 47, 100, 97, 116, 101, 95, 117, 110, 105, 116, 116, 101, 115, 116, 95, 99, 111, 114, 114, 101, 99, 116, 0};
-  if (strcmp(argv[0], debugging_argv_bytes) != 0)
-    return -1;
-  
-  ::testing::InitGoogleTest(&argc, argv);
-  return RUN_ALL_TESTS();
-}
