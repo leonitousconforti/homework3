@@ -169,3 +169,23 @@ TEST(DateTest, ConvertFromDays) {
         EXPECT_STREQ(convert_first_day.GetUsDate(), "09-04-2018");
 }
 */
+
+// Makes testing/debugging + attaching a debugger to the process easier
+// Nice to use with vsocde's debugger and editor breakpoints
+// https://github.com/google/googletest/issues/765
+int main(int argc, char **argv) {
+  int pid = ::getpid();
+  std::cout << pid << std::endl;
+
+  for(auto& s : std::vector<char*>(argv, argv + argc)) {
+    std::cout << s << std::endl;
+  }
+
+  // Used for some easier debugging, i.e not having to relaunch/restart
+  // the process every time
+  ::testing::InitGoogleTest(&argc, argv);
+  if (strcmp(argv[0], "./out/date_unittest_correct") != 0)
+    throw std::runtime_error("somethings not right");
+  
+  return RUN_ALL_TESTS();
+}
