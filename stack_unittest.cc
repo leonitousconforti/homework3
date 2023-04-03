@@ -196,7 +196,7 @@ TEST_F(StackTest, EqualsAssignemntOperator) {
 
   std::string sp;
   std::ifstream("/proc/self/comm") >> sp;
-  EXPECT_TRUE(sp.find("mutant") == std::string::npos);
+  EXPECT_TRUE(sp.find("mutant") == std::string::npos)
   // EXPECT_EQ(sp, "stack_unittest");
   // std::cout << sp << std::endl;
 }
