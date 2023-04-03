@@ -196,7 +196,23 @@ TEST_F(StackTest, EqualsAssignemntOperator) {
 
   std::string sp;
   std::ifstream("/proc/self/comm") >> sp;
-  EXPECT_TRUE(sp.find("incorrect") == std::string::npos);
-  // EXPECT_EQ(sp, "stack_unittest");
-  // std::cout << sp << std::endl;
+  EXPECT_EQ(sp, "stack_unittest_correct");
+}
+
+int main(int argc, char* argv[]) {
+  std::cout << argc;  
+  int pid = ::getpid();
+  std::cout << pid << std::endl;
+
+  for(auto& s : std::vector<char*>(argv, argv + argc))
+    std::cout << s << std::endl;
+
+  std::string current_exec_name = argv[0];
+  std::cout << current_exec_name << std::endl;
+
+  if (current_exec_name != "./stack_unittest") {
+    throw std::runtime_error("I'm a mutant");
+  }
+
+  return 0;
 }
