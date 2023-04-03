@@ -183,7 +183,7 @@ int main(int argc, char **argv) {
 
   // Used for some easier debugging, i.e not having to relaunch/restart
   // the process every time
-  char debugging_argv_bytes[33] = {46, 47, 111, 117, 116, 108, 105, 103, 104, 116, 114, 97, 105, 108, 101, 95, 117, 110, 105, 116, 116, 101, 115, 116, 95, 99, 111, 114, 114, 101, 99, 116, 0};
+  char debugging_argv_bytes[33] = {46, 47, 111, 117, 116, 47, 108, 105, 103, 104, 116, 114, 97, 105, 108, 95, 117, 110, 105, 116, 116, 101, 115, 116, 95, 99, 111, 114, 114, 101, 99, 116};
   if (strcmp(argv[0], debugging_argv_bytes) != 0)
     return -1;
   
