@@ -197,8 +197,8 @@ TEST_F(StackTest, EqualsAssignemntOperator) {
 
 TEST_F(StackTest, Overflow) {
   Stack s(3);
-  s.push(1)
-  s.push(2)
+  s.push(1);
+  s.push(2);
   s.push(3);
   ASSERT_TRUE(s.isFull());
   EXPECT_EXIT(s.push(4), ::testing::ExitedWithCode(EXIT_FAILURE), ".*");
@@ -206,7 +206,7 @@ TEST_F(StackTest, Overflow) {
 
 TEST_F(StackTest, Underflow) {
   Stack s;
-  s.push(1)
+  s.push(1);
   s.push(2);
   s.pop();
   ASSERT_FALSE(s.isEmpty());
