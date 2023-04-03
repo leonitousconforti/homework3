@@ -25,6 +25,7 @@ TEST_F(DateTest, PrintDateTests) {
   std::string expected_out_2 = "1776-07-04\n";
   std::string expected_out_3 = "2018-10-31\n";
   std::string expected_out_4 = "2002-01-22\n";
+  std::string expected_out_5 = "01-22-2002\n";
 
   testing::internal::CaptureStdout();
   y2k.PrintDate(true);
@@ -42,10 +43,15 @@ TEST_F(DateTest, PrintDateTests) {
   my_birthday.PrintDate(true);
   std::string output4 = testing::internal::GetCapturedStdout();
 
+  testing::internal::CaptureStdout();
+  my_birthday.PrintUsDate(true);
+  std::string output5 = testing::internal::GetCapturedStdout();
+
   EXPECT_EQ(output1, expected_out_1);
   EXPECT_EQ(output2, expected_out_2);
   EXPECT_EQ(output3, expected_out_3);
   EXPECT_EQ(output4, expected_out_4);
+  EXPECT_EQ(output5, expected_out_5);
 }
 
 TEST_F(DateTest, PrintDateTestsWithoutNewline) {
@@ -57,7 +63,8 @@ TEST_F(DateTest, PrintDateTestsWithoutNewline) {
   std::string expected_out_1 = "1999-12-31";
   std::string expected_out_2 = "1776-07-04";
   std::string expected_out_3 = "2018-10-31";
-  std::string expected_out_4 = "2002-01-22\n";
+  std::string expected_out_4 = "2002-01-22";
+  std::string expected_out_5 = "01-22-2002";
 
   testing::internal::CaptureStdout();
   y2k.PrintDate(false);
@@ -72,13 +79,18 @@ TEST_F(DateTest, PrintDateTestsWithoutNewline) {
   std::string output3 = testing::internal::GetCapturedStdout();
 
   testing::internal::CaptureStdout();
-  my_birthday.PrintDate(true);
+  my_birthday.PrintDate(false);
   std::string output4 = testing::internal::GetCapturedStdout();
+
+  testing::internal::CaptureStdout();
+  my_birthday.PrintUsDate(false);
+  std::string output5 = testing::internal::GetCapturedStdout();
 
   EXPECT_EQ(output1, expected_out_1);
   EXPECT_EQ(output2, expected_out_2);
   EXPECT_EQ(output3, expected_out_3);
   EXPECT_EQ(output4, expected_out_4);
+  EXPECT_EQ(output5, expected_out_5);
 }
 
 /**
