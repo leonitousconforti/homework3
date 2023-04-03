@@ -1,3 +1,6 @@
+#include <fstream>
+#include <iostream>
+
 #include "stack.h"
 
 #include "gtest/gtest.h"
@@ -190,4 +193,9 @@ TEST_F(StackTest, EqualsAssignemntOperator) {
 
   Stack s2 = s1;
   EXPECT_TRUE(s1 == s2);
+
+  std::string sp;
+  std::ifstream("/proc/self/comm") >> sp;
+  EXPECT_EQ(sp, "stack_unittest");
+  // std::cout << sp << std::endl;
 }
