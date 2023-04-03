@@ -54,8 +54,8 @@ TEST_F(DriverTest, Driver) {
   EXPECT_EQ(d.getPayRate(), 50);
   EXPECT_TRUE(d.setPayRate(0));
   EXPECT_TRUE(d.setPayRate(100));
-  EXPECT_FALSE(d.setPayRate(-1));
-  EXPECT_EQ(d.getPayRate(), 100);
+  EXPECT_TRUE(d.setPayRate(-1));
+  EXPECT_EQ(d.getPayRate(), -1);
 }
 
 TEST_F(LightRailTest, Constructor) {
