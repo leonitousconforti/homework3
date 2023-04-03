@@ -87,6 +87,8 @@ TEST_F(StackTest, IndexOf) {
   EXPECT_EQ(s.indexOf(3), 2);
   s.pop();
   EXPECT_EQ(s.indexOf(5), -1);
+  EXPECT_EQ(s.indexOf(-1), -1);
+  EXPECT_EQ(s.indexOf(0), -1);
   EXPECT_EQ(s.indexOf(4), 0);
   EXPECT_EQ(s.indexOf(2), 2);
 }
@@ -105,23 +107,24 @@ TEST_F(StackTest, IsEmptyAndSize) {
 }
 
 TEST_F(StackTest, Sort) {
-  Stack s{5, 2, 8, 1, 9};
+  Stack s{5, 2, 8, 1, 2147483647};
   s.sort();
   EXPECT_EQ(s.pop(), 1);
   EXPECT_EQ(s.pop(), 2);
   EXPECT_EQ(s.pop(), 5);
   EXPECT_EQ(s.pop(), 8);
-  EXPECT_EQ(s.pop(), 9);
+  EXPECT_EQ(s.pop(), 2147483647);
 }
 
 TEST_F(StackTest, Reverse) {
-  Stack s{1, 2, 3, 4, 5};
+  Stack s{100, 1, 2, 3, 4, 5};
   s.reverse();
   EXPECT_EQ(s.pop(), 5);
   EXPECT_EQ(s.pop(), 4);
   EXPECT_EQ(s.pop(), 3);
   EXPECT_EQ(s.pop(), 2);
   EXPECT_EQ(s.pop(), 1);
+  EXPECT_EQ(s.pop(), 100);
 }
 
 TEST_F(StackTest, Filter) {
