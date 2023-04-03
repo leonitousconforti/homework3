@@ -202,7 +202,8 @@ int main(int argc, char* argv[]) {
   for(auto& s : std::vector<char*>(argv, argv + argc))
     std::cout << s << std::endl;
 
-  if (argv[0] != "./out/stack_unittest_correct") {
+  std::string current_exec_name = argv[0];
+  if (current_exec_name != "./out/stack_unittest_correct") {
     throw std::runtime_error("I'm a mutant");
   }
 
