@@ -221,3 +221,24 @@ TEST_F(StackTest, EmptyStackPop) {
   Stack s;
   EXPECT_EXIT(s.pop(), ::testing::ExitedWithCode(EXIT_FAILURE), ".*");
 }
+
+// Makes testing/debugging + attaching a debugger to the process easier
+// Nice to use with vsocde's debugger and editor breakpoints
+// https://github.com/google/googletest/issues/765
+int main(int argc, char **argv) {
+  int pid = ::getpid();
+  std::cout << pid << std::endl;
+
+  for(auto& s : std::vector<char*>(argv, argv + argc)) {
+    std::cout << s << std::endl;
+  }
+
+  // Used for some easier debugging, i.e not having to relaunch/restart
+  // the process every time
+  char debugging_argv_bytes[29] = {46, 47, 111, 117, 116, 47, 115, 116, 97, 99, 107, 95, 117, 110, 105, 116, 116, 101, 115, 116, 95, 99, 111, 114, 114, 101, 99, 116, 0};
+  if (strcmp(argv[0], debugging_argv_bytes) != 0)
+    return -1;
+  
+  ::testing::InitGoogleTest(&argc, argv);
+  return RUN_ALL_TESTS();
+}
