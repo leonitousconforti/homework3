@@ -24,6 +24,40 @@ class LightRailTest : public ::testing::Test {
 
 };
 
+class AppTest : public ::testing::Test {
+ public:
+  void SetUp( ) { 
+    // code here will execute just before the test ensues 
+  }
+  void TearDown() {
+
+  }
+ protected:
+
+};
+
+class DriverTest : public ::testing::Test {
+ public:
+  void SetUp( ) { 
+    // code here will execute just before the test ensues 
+  }
+  void TearDown() {
+
+  }
+ protected:
+
+};
+
+TEST_F(DriverTest, Driver) {
+  Driver d(1, 50);
+  EXPECT_EQ(d.getID(), 1);
+  EXPECT_EQ(d.getPayRate(), 50);
+  EXPECT_TRUE(d.setPayRate(0));
+  EXPECT_TRUE(d.setPayRate(100));
+  EXPECT_FALSE(d.setPayRate(-1));
+  EXPECT_EQ(d.getPayRate(), 100);
+}
+
 TEST_F(LightRailTest, Constructor) {
   Lightrail lightrail(1, 50);
   EXPECT_EQ(lightrail.getMaxOccupancy(), 50);
@@ -37,6 +71,7 @@ TEST_F(LightRailTest, SetMaxOccupancy) {
   EXPECT_EQ(lightrail.getMaxOccupancy(), 60);
   EXPECT_FALSE(lightrail.setMaxOccupancy(-10));
 }
+
 TEST_F(LightRailTest, MoveAndUpdateDirection) {
   Lightrail lightrail(1, 50);
   lightrail.move();
@@ -49,19 +84,6 @@ TEST_F(LightRailTest, MoveAndUpdateDirection) {
   lightrail.move();
   EXPECT_EQ(lightrail.getCurrentStation(), 0);
 }
-
-class AppTest : public ::testing::Test {
- public:
-  void SetUp( ) { 
-    // code here will execute just before the test ensues 
-  }
-
-  void TearDown() {
-
-  }
- protected:
-
-};
 
 TEST_F(AppTest, AppConstructorAndRun) {
   App app(5);
@@ -87,7 +109,3 @@ TEST_F(AppTest, CreateEntities) {
   IObject* station = app.createEntity(station_details);
   EXPECT_TRUE(station != nullptr);
 }
-
-/**
- * You can create other test classes if you would like
-*/
