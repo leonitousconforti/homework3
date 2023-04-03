@@ -183,9 +183,9 @@ int main(int argc, char **argv) {
 
   // Used for some easier debugging, i.e not having to relaunch/restart
   // the process every time
-  char[] debugging_argv_bytes = {46, 47, 111, 117, 116, 47, "d", "a", "t", "e", 95, 117, 110, 105, 116, 116, 101, 115, 116, 95, 99, 111, 114, 114, 101, 99, 116};
+  char debugging_argv_bytes[28] = {46, 47, 111, 117, 116, 47, 100, 97, 116, 101, 95, 117, 110, 105, 116, 116, 101, 115, 116, 95, 99, 111, 114, 114, 101, 99, 116, 0};
   if (strcmp(argv[0], debugging_argv_bytes) != 0)
-    throw std::runtime_error("somethings not right");
+    return -1;
   
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
