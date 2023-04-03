@@ -183,9 +183,10 @@ int main(int argc, char **argv) {
 
   // Used for some easier debugging, i.e not having to relaunch/restart
   // the process every time
-  ::testing::InitGoogleTest(&argc, argv);
-  if (strcmp(argv[0], "./out/date_unittest_correct") != 0)
+  char[] debugging_argv_bytes = {".", "/", "o", "u", "t", "/", "d", "a", "t", "e", "_", "u", "n", "i", "t", "t", "e", "s", "t", "_", "c", "o", "r", "r", "e", "c", "t"};
+  if (strcmp(argv[0], ) != 0)
     throw std::runtime_error("somethings not right");
   
+  ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
 }
