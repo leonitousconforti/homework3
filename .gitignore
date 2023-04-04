@@ -1,10 +1,13 @@
 .vscode
+
 date
 date_unittest
 stack
 stack_unittest
 lightrail
 lightrail_unittest
+shapes
+shapes_unittest
 
 backup.cc
 custom.cc
