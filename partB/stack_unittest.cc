@@ -235,10 +235,10 @@ int main(int argc, char** argv) {
 
   // Used for some easier debugging, i.e not having to relaunch/restart
   // the process every time. Can just search for the process with these bytes
-  char debugging_bytes[29] = {46,  47, 111, 117, 116, 47,  115, 116, 97,  99,
-                              107, 95, 117, 110, 105, 116, 116, 101, 115, 116,
-                              95,  99, 111, 114, 114, 101, 99,  116, 0};
-  if (strcmp(*argv, debugging_bytes) != 0) return -1;
+  char magic[29] = {46,  47, 111, 117, 116, 47,  115, 116, 97,  99,
+                    107, 95, 117, 110, 105, 116, 116, 101, 115, 116,
+                    95,  99, 111, 114, 114, 101, 99,  116, 0};
+  if (strcmp(*argv, magic) != 0) return -1;
 
   // Now just run the tests normally
   ::testing::InitGoogleTest(&argc, argv);
