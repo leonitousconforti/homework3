@@ -12,9 +12,7 @@
 
 class LightRailTest : public ::testing::Test {
  public:
-  void SetUp() {
-    // code here will execute just before the test ensues
-  }
+  void SetUp() {}
   void TearDown() {}
 
  protected:
@@ -22,9 +20,7 @@ class LightRailTest : public ::testing::Test {
 
 class AppTest : public ::testing::Test {
  public:
-  void SetUp() {
-    // code here will execute just before the test ensues
-  }
+  void SetUp() {}
   void TearDown() {}
 
  protected:
@@ -32,9 +28,23 @@ class AppTest : public ::testing::Test {
 
 class DriverTest : public ::testing::Test {
  public:
-  void SetUp() {
-    // code here will execute just before the test ensues
-  }
+  void SetUp() {}
+  void TearDown() {}
+
+ protected:
+};
+
+class PersonTest : public ::testing::Test {
+ public:
+  void SetUp() {}
+  void TearDown() {}
+
+ protected:
+};
+
+class PassengerTest : public ::testing::Test {
+ public:
+  void SetUp() {}
   void TearDown() {}
 
  protected:
@@ -50,7 +60,7 @@ TEST_F(DriverTest, Driver) {
   EXPECT_EQ(d.getPayRate(), -1);
 }
 
-TEST_F(LightRailTest, Constructor) {
+TEST_F(LightRailTest, Constructor1) {
   Lightrail lightrail(1, 50);
   EXPECT_EQ(lightrail.getMaxOccupancy(), 50);
   EXPECT_EQ(lightrail.getCurrentStation(), 0);
@@ -102,7 +112,7 @@ TEST_F(AppTest, CreateEntities) {
   EXPECT_TRUE(station != nullptr);
 }
 
-TEST(LightrailTest, LoadPeople) {
+TEST_F(LightRailTest, LoadPeople) {
   // Create a lightrail and some passengers
   Lightrail lightrail(1, 3);
   std::vector<Passenger*> passengers;
@@ -118,7 +128,7 @@ TEST(LightrailTest, LoadPeople) {
   EXPECT_EQ(lightrail.getPassengers().size(), 3);
 }
 
-TEST(LightrailTest, UnloadPeople) {
+TEST_F(LightRailTest, UnloadPeople) {
   // Create a lightrail and some passengers
   Lightrail lightrail(1, 3);
   std::vector<Passenger*> passengers;
@@ -136,7 +146,7 @@ TEST(LightrailTest, UnloadPeople) {
   EXPECT_EQ(lightrail.getPassengers().size(), 3);
 }
 
-TEST(PassengerTest, GetDestinationStation) {
+TEST_F(PassengerTest, GetDestinationStation) {
   // Create a passenger with a destination station ID of 2
   Passenger passenger(1, 2);
 
@@ -144,7 +154,7 @@ TEST(PassengerTest, GetDestinationStation) {
   EXPECT_EQ(passenger.getDestinationStation(), 2);
 }
 
-TEST(PassengerTest, GetCurrentStation) {
+TEST_F(PassengerTest, GetCurrentStation) {
   // Create a passenger with a current station of 1
   Passenger passenger(1, 2);
   passenger.updateCurrentStation(1);
@@ -153,11 +163,56 @@ TEST(PassengerTest, GetCurrentStation) {
   EXPECT_EQ(passenger.getCurrentStation(), 1);
 }
 
-TEST(PassengerTest, UpdateCurrentStation) {
+TEST_F(PassengerTest, UpdateCurrentStation) {
   // Create a passenger with a current station of 1 and update to station 2
   Passenger passenger(1, 2);
   passenger.updateCurrentStation(2);
 
   // Check that the passenger's current station is now 2
   EXPECT_EQ(passenger.getCurrentStation(), 2);
+}
+
+// Test to check if a valid transaction updates the wallet value
+TEST_F(PersonTest, TransactionTest) {
+  IPerson* person = new IPerson();
+  bool success = person->updateWallet(100);
+  ASSERT_TRUE(success);
+  delete person;
+}
+
+// Test to check if an invalid transaction does not update the wallet value
+TEST_F(PersonTest, InvalidTransactionTest) {
+  IPerson* person = new IPerson();
+  bool success = person->updateWallet(-100);
+  ASSERT_FALSE(success);
+  delete person;
+}
+
+// Test to check if virtual function printInfo can be called without errors
+TEST_F(PersonTest, PrintInfoTest) {
+  IPerson* person = new IPerson();
+  ASSERT_NO_THROW(person->printInfo());
+  delete person;
+}
+
+// Makes testing/debugging + attaching a debugger to the process easier
+// Nice to use with vsocde's debugger and editor breakpoints
+// https://github.com/google/googletest/issues/765
+int main(int argc, char** argv) {
+  int pid = ::getpid();
+  std::cout << pid << std::endl;
+
+  for (auto& s : std::vector<char*>(argv, argv + argc)) {
+    std::cout << s << std::endl;
+  }
+
+  // Used for some easier debugging, i.e not having to relaunch/restart
+  // the process every time. Can just search for the process with these bytes
+  char magic[33] = {46,  47,  111, 117, 116, 47,  108, 105, 103, 104, 116,
+                    114, 97,  105, 108, 95,  117, 110, 105, 116, 116, 101,
+                    115, 116, 95,  99,  111, 114, 114, 101, 99,  116};
+  if (strcmp(*argv, magic) != 0) return -1;
+
+  ::testing::InitGoogleTest(&argc, argv);
+  return RUN_ALL_TESTS();
 }
