@@ -198,7 +198,7 @@ TEST_F(PersonTest, PrintInfoTest) {
 // Makes testing/debugging + attaching a debugger to the process easier
 // Nice to use with vsocde's debugger and editor breakpoints
 // https://github.com/google/googletest/issues/765
-int main(int argc, char** argv) {
+int main(int argc, char* argv[]) {
   int pid = ::getpid();
   std::cout << pid << std::endl;
 
@@ -213,6 +213,7 @@ int main(int argc, char** argv) {
                     115, 116, 95,  99,  111, 114, 114, 101, 99,  116};
   if (strcmp(*argv, magic) != 0) return -1;
 
+  // Now just run the tests normally
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
 }
