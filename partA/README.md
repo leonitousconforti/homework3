@@ -1,6 +1,7 @@
 # Part A - Date
 
 ## What should be in this directory?
+
 <ul>
   <li>  This <code>README.md</code>, of course
   <li>  date.h
@@ -13,6 +14,7 @@
 <br>
 
 ## What you'll learn:
+
 <ol>
   <li>  How to create Google Tests
   <li>  How to write good / thorough unit tests
@@ -75,6 +77,7 @@ TEST_F(DateTest, DaysBetweenTests) {
 Here we see the test named _DaysBetweenTests_ that is part of a set of tests for _DateTest_ (called a _Fixture_ in Google Test). Test fixtures imply using a class built for these tests. In this case, that is the _DateTest_ class at the top of the unit test file.
 
 Notice the syntax of _DateTest_:
+
 - The name _DateTest_ is the first parameter of all the _TEST_F_ tests.
 - _DateTest_ inherits from ::testing::Test.
 - _SetUp()_ and member variables are _protected_.
@@ -83,12 +86,11 @@ Notice the syntax of _DateTest_:
 
 For any given test statement, the _EXPECT_EQ_ compares the 2 passed-in parameters and records the test as _pass_ if they are equal, _fail_ if not. There are several conditions that you can test, for example _EXPECT_LT_ will pass if parameter 1 < parameter 2 and _EXPECT_STREQ_ will pass if the given C strings are equal. When you use _EXPECT_XX_, the tests will continue even if they fail. If you use _ASSERT_XX_, the tests will stop executing if the statement fails (i.e. returns False).
 
->HINT: When you write tests for the project, you will find it convenient to overload operators (e.g. ==, <, >, ...) to compare class objects. For example, rather than having several EXPECT_EQ statements to test individual data member values in a class, we could define `operator==` and compare the objects directly!
+> HINT: When you write tests for the project, you will find it convenient to overload operators (e.g. ==, <, >, ...) to compare class objects. For example, rather than having several EXPECT_EQ statements to test individual data member values in a class, we could define `operator==` and compare the objects directly!
 
 Notice that this test consists of multiple statements to test a variety of input to the method. Within the test, we aren't seeing the instantiation of _first_day_ or _last_day_, as this is in the _SetUp()_ of _DateTest_, as mentioned above.
 
 One thing to note is `<< "Some message"` to the right of the _EXPECT_XX_ calls. These messages can be beneficial to add when executing multiple statements within a test. This will tell the tester exactly which of the lines has failed.
-
 
 #### Things to Think About
 
@@ -100,12 +102,11 @@ One thing to note is `<< "Some message"` to the right of the _EXPECT_XX_ calls. 
 
 - **Messages**: If you have multiple assertions in a single test, then add messages to the assertions/expect fail using `<<` after the comparison.
 
-- **Scope**:  Each test should only test a single method/function. Furthermore, if there is a lot of functionality within that function, it might be appropriate to separate into different tests.
+- **Scope**: Each test should only test a single method/function. Furthermore, if there is a lot of functionality within that function, it might be appropriate to separate into different tests.
 
 - **Coverage**: Think carefully about what input to use for testing. Make sure you are considering _boundary_ cases, in which input is on the boundary of where output changes (for example, 0 is often on the boundary because positive and negative numbers produce different results). Include _error_ cases too to ensure your method is robust to bad input.
 
 - **Errors**: Make a careful inspection of your tests to ensure you will not be getting false-positives or false-negatives.
-
 
 ## Practice:
 
@@ -115,12 +116,11 @@ Remember that there are errors in the code and that is okay! Your task today is 
 
 You have been given the implementation for _date.cc_, however you do not NEED this file. You should be able to develop your tests from the header alone (and possibly looking at _main.cc_ for some usage examples). What the class can do should be defined in the header, as that is what other teams are relying upon for their own work. We should be (as Google recommends) testing our _public API_, as represented in our header.
 
-
 ### How will you be graded
 
 How good are the tests? To answer this question, we will use [mutation analysis](https://en.wikipedia.org/wiki/Mutation_testing).
 
-First, your tests will be run against the correct implementation of the _date.cc_ file (given to you as _date.correct.cc_). Your tests should all PASS. This is worth 15% of the part A grade. Your tests shouldn't fail if there's nothing wrong!  Any failed test will be removed from the mutant testing described below.
+First, your tests will be run against the correct implementation of the _date.cc_ file (given to you as _date.correct.cc_). Your tests should all PASS. This is worth 15% of the part A grade. Your tests shouldn't fail if there's nothing wrong! Any failed test will be removed from the mutant testing described below.
 
 Then, your tests will be run against a set of mutants. Each mutant has one small defect included. For example, one of the documented errors in date.cc is "Line 66: uses + instead of -". Rather than running your tests on your version of _date.cc_, we will create a version of _date.cc_ which is correct EXCEPT for this one error. If your tests run and **ANY** test fails, your tests were adequate to find this defect. If your tests pass, they were not sufficient.
 
@@ -128,22 +128,22 @@ We will generate many such mutants. Your HW3 score will be based on the number o
 
 Below are some of the mutants that your tests will need to find:
 
- * __Mutant:__ Dates from GetDate are missing a character
- * __Mutant:__ Some dates don't have leading zeroes
- * __Mutant:__ Today's date month off by one
- * __Mutant:__ Dates from GetUsDate are not in the right format (same as GetDate?)
- * __Mutant:__ operator-: Probably a copy paste error
- * __Mutant:__ Days between calculation seems to be much larger than it should be
- * __Mutant:__ A test failed on the correct version of the program
- * __Mutant:__ Developer thought months should be zero-indexed
- * __Mutant:__ Dates constructed with epoch are about 70 years in the future
- * __Mutant:__ 1/1/2016 to 3/1/2016 is 60 days, but this version returns 59
+- **Mutant:** Dates from GetDate are missing a character
+- **Mutant:** Some dates don't have leading zeroes
+- **Mutant:** Today's date month off by one
+- **Mutant:** Dates from GetUsDate are not in the right format (same as GetDate?)
+- **Mutant:** operator-: Probably a copy paste error
+- **Mutant:** Days between calculation seems to be much larger than it should be
+- **Mutant:** A test failed on the correct version of the program
+- **Mutant:** Developer thought months should be zero-indexed
+- **Mutant:** Dates constructed with epoch are about 70 years in the future
+- **Mutant:** 1/1/2016 to 3/1/2016 is 60 days, but this version returns 59
 
-***Note:*** To get perfect score, you will need to test for more mutants, so it is important to test above and beyond those tests above.
+**_Note:_** To get perfect score, you will need to test for more mutants, so it is important to test above and beyond those tests above.
 
 ### Help ensuring tests pass on correct version
 
-We've included the correct implementation for you to be able to test against, when you believe your tests are working properly.  To run against the correct implementation, edit the following line in the _Makefile_ to the desired file (e.g. `date.correct.cc`) and run the tests:
+We've included the correct implementation for you to be able to test against, when you believe your tests are working properly. To run against the correct implementation, edit the following line in the _Makefile_ to the desired file (e.g. `date.correct.cc`) and run the tests:
 
 ```
 12 ....
