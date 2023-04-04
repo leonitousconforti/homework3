@@ -1,38 +1,39 @@
 #ifndef PASSENGER_H_
 #define PASSENGER_H_
 
-#include "person.h"
-#include "station.h"
 #include <map>
 
+#include "person.h"
+#include "station.h"
+
 class Passenger : public IPerson {
-    public:
-        /**
-        * @brief Default constructor for passenger
-        */
-        Passenger(void);
-        /**
-        * @brief Constructor for passenger
-        * @param stationID of the destination ID for the passenger
-        */
-        Passenger(int id, int stationId);
+ public:
+  /**
+   * @brief Default constructor for passenger
+   */
+  Passenger(void);
+  /**
+   * @brief Constructor for passenger
+   * @param stationID of the destination ID for the passenger
+   */
+  Passenger(int id, int stationId);
 
-        /**
-        * @brief Getter for destination station ID
-        * @returns destination station ID
-        */
-        int getDestinationStation(void);
+  /**
+   * @brief Getter for destination station ID
+   * @returns destination station ID
+   */
+  int getDestinationStation(void);
 
-        int getCurrentStation();
+  int getCurrentStation();
 
-        void updateCurrentStation(int newStation);
+  void updateCurrentStation(int newStation);
 
-        void printInfo(void);
+  void printInfo(void);
 
-    private:
-        /** Station ID at which passenger will get off train */
-        int destinationStationId_;
-        int currentStation;
+ private:
+  /** Station ID at which passenger will get off train */
+  int destinationStationId_;
+  int currentStation;
 };
 
 #endif  // PASSENGER_H_
