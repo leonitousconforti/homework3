@@ -10,4 +10,5 @@ shapes
 shapes_unittest
 
 backup.cc
-custom.cc
+fingerprinting/fingerprinting
+fingerprinting/fingerprinting_correct
