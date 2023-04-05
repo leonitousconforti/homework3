@@ -32,6 +32,7 @@
         "editor.bracketPairColorization.enabled": true,
         "codemetrics.basics.DecorationModeEnabled": false,
         "codemetrics.basics.OverviewRulerModeEnabled": false,
+        "cmake.configureOnOpen": false,
         "C_Cpp.clang_format_fallbackStyle": "{ BasedOnStyle: Google }",
         "[json]": {
           "editor.defaultFormatter": "esbenp.prettier-vscode"
@@ -64,8 +65,8 @@
   // "forwardPorts": [],
 
   // Use 'postCreateCommand' to run commands after the container is created.
-  "postCreateCommand": "gcc -v"
+  "postCreateCommand": "gcc -v",
 
   // Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
-  // "remoteUser": "root"
+  "remoteUser": "root"
 }
