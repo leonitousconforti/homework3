@@ -22,7 +22,8 @@
         "editorconfig.editorconfig",
         "streetsidesoftware.code-spell-checker",
         "eamodio.gitlens",
-        "ms-vscode.makefile-tools"
+        "ms-vscode.makefile-tools",
+        "carlos-algms.make-task-provider"
       ],
       "settings": {
         "cSpell.enabled": true,
