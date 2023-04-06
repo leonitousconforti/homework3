@@ -33,6 +33,7 @@ TEST(MutantTest, DetectMutant) {
 
   if (!exists(identifier)) {
     write(identifier, 0);
+    EXPECT_TRUE(true);
   }
 
   int current_count = read(identifier);

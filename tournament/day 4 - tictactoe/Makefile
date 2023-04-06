@@ -2,7 +2,7 @@ CXX=g++
 CXXFLAGS = -std=c++14 -g
 DEP_DIR= ../../dependencies
 
-CLASSNAME = ???
+CLASSNAME = tictactoe
 
 EXE = $(CLASSNAME).o
 
