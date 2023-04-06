@@ -10,6 +10,8 @@ queue
 queue_unittest
 clock
 clock_unittest
+tictactoe
+tictactoe_unittest
 
 backup.cc
 fingerprinting/fingerprinting
