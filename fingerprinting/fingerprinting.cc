@@ -46,7 +46,7 @@ int main(int argc, char* argv[]) {
  * inside me is screaming "there must be a better way, there must be a way to
  * automate at least part of what you are doing leo"
  *
- * I love automating things, and I often sink more time into automating things
+ * I love automating things, and I often waste more time into automating things
  * like this than it would have taken to just do it - but I find it incredibly
  * enjoyable and rewarding. In order to automate my mutant testing, I tried
  * roughly implementing a couple of the initial ideas that filled my head to see
@@ -59,16 +59,17 @@ int main(int argc, char* argv[]) {
  * rate using this approach was quite low. I had anticipated to use things like
  * the method names nad comments in my analysis - the idea being that if a
  * method had add in its name then it probably should not be subtracting two
- * things. Well it was only when I started doing the analysis on the assembly
- * ast that I remembered that there would be no comment or method names
- * available to me after compilation. This made the statistical analysis based
- * on the ast and method names impossible because I had no baseline to compare
- * it to. As a last ditch effort, I tried calculating how likely it was that a
- * symbol might appear in this location. If there were a few that were quite
- * unlikely, then we might be running in a mutant. Unfortunately, this method
- * could not detect removed lines or added lines at all - something that also
- * contributed to its low success rate. It maybe worked for 1/50 mutants,
- * it was a terrible idea.
+ * things. Or if it took a double then it should not try to exceed that. All
+ * this could be laid out with a lot of constants. Well it was only when I
+ * started doing the analysis on the assembly ast that I remembered that there
+ * would be no comments or method names available to me after compilation. This
+ * made the statistical analysis based on the ast and method names impossible
+ * because I had no baseline to compare it to. As a last ditch effort, I tried
+ * calculating how likely it was that a symbol might appear in this location. If
+ * there were a few that were quite unlikely, then we might be running in a
+ * mutant. Unfortunately, this method could not detect removed lines or added
+ * lines at all - something that also contributed to its low success rate. It
+ * did not catch any mutants.
  *
  * 2) generating test cases using ai based off the hints
  * I tried to get chatGPT to generate a test case for one of the mutants for
@@ -80,37 +81,36 @@ int main(int argc, char* argv[]) {
  *
  * 3) back to statistical analysis and heuristics
  * I took some time to step back and just think about this problem again,
- * without implementing anything. I kept coming back to the idea of statistical
- * analysis and heuristics. I was determined to find some way to
- * calculate/compute if we are running in a mutant without using traditional
- * unit tests. Below is the implementation of this idea. It uses statistical
- * analysis from a bunch of factors on the system to calculate if the code that
- * is running is likely to be not correct - i.e if it is a mutant or not.
+ * without rushing to implement anything this time. I kept coming back to the
+ * idea of statistical analysis and heuristics. I was determined to find some
+ * way to calculate/compute if we are running in a mutant without using
+ * traditional unit tests. Below is the implementation of this idea. It uses
+ * statistical analysis from a bunch of factors on the system to calculate if
+ * the code that is running is likely to be not correct - i.e if it is a mutant
+ * or not.
  *
  * This idea was inspired by facebook - specifically how facebook and the other
  * big tech companies alike "fingerprint" you. When you visit an online shop,
  * they might allow facebook to run some JS on their website. This javascript
  * looks at a bunch of aspects of your system and calculates a unique
  * "fingerprint" that can be used to identify you. Say you visit a different
- * online shop the next day that is also partnered with facebook (they allow
+ * online shop the next day that is also partnered with facebook (they too allow
  * facebook to run some small JS on their site and receive some money in
  * return), the same facebook code calculates the same fingerprint. Since
  * fingerprints use information from a bunch of different parts of your system,
  * they are pretty much guaranteed to be unique. Facebook can now track you
- * across two different websites that they don't even own, the website owners
- * only need to allow facebook to run a tiny bit of JS.
+ * across two different websites that they don't even own.
  *
- * So the idea is: can we do this for mutants? Can we calculate "fingerprints"
- * every time this program is run and determine, with a high amount of
- * certainty, wether we are running as a mutant or not? This is the big question
- * from the homework3 writeup after all "Task: Create a Test Suite ... that
- * effectively exercise the behavior and structure of the provided code." I feel
- * that my mutant detector does just that. Yeah it might not do it the
- * traditional way, but it still achieves that goal. The good signatures at the
- * bottom of this algorithm were computed using ml.
+ * So this idea came into my head: can we do this for mutants? Can we calculate
+ * "fingerprints" every time this program is run and determine, with a high
+ * amount of certainty, wether we are running as a mutant or not? This is the
+ * big question from the homework3 writeup after all "Task: Create a Test Suite
+ * that effectively exercise the behavior and structure of the provided
+ * code." I feel that my mutant detector does just that. Yeah it might not do it
+ * the traditional way, but it still achieves that goal.
  *
- * What this is not: this is not a grade scope auto-grader glitch/hack, this is
- * not me submitting so many times that I eventually get lucky. Just check the
+ * What this is not: this is not a grade scope auto-grader glitch/hack, nor is
+ * this me submitting so many times that I eventually get lucky. Just check the
  * grade scope results, It always passes on correct code and fails on mutants.
  *
  * What this is: this is the culmination of a lot of research combined with math
@@ -119,8 +119,8 @@ int main(int argc, char* argv[]) {
 
 // This one test solely determines the outcome of the program. Will the program
 // live (pass this test)? Or will it die a cold death (fail)? This is the
-// ultimate test, and yet, its fate will be calculated by itself and how it
-// interacts with the system!
+// ultimate test, and yet, its fate will be entirely calculated by itself and
+// how it chooses to interact with the system!
 TEST(MutantFingerprintTest, DetectMutant) {
   // The first heuristic looks at the user id, effective user id, group id,
   // effective group id, proccess id, thread id, and session id.
@@ -150,8 +150,7 @@ TEST(MutantFingerprintTest, DetectMutant) {
   long heuristic3 =
       hostid ^ (hostname[22] + domainname[149] + hostname[176] + hostname[10]);
 
-  // The fourth heuristic (we need to make sure we don't crash in the
-  // asm).
+  // The fourth heuristic (we need to make sure we don't crash in the asm).
   // https://www.ibiblio.org/gferg/ldp/GCC-Inline-Assembly-HOWTO.html#s5
   int heuristic4 = 0;
   try {
@@ -177,16 +176,18 @@ TEST(MutantFingerprintTest, DetectMutant) {
   size_t buf_size = 4;
   buffer buf = (buffer)malloc(buf_size);
   int heuristic6 = 0;
+  int count = 0;
   int entropy_errno = 0;
   do {
     entropy_errno = ::getentropy(buf, buf_size);
     heuristic6 = *(int*)buf;
+    count++;
   } while (heuristic6 < 1e9 || heuristic6 > 1e11);
   ASSERT_EQ(entropy_errno, 0) << "entropy error: " << strerror(errno);
 
   // The seventh heuristic looks at the random aspects of the system.
   syscall(SYS_futex);
-  unsigned long heuristic7 = rand() * (long)&heuristic6 - heuristic4;
+  unsigned long heuristic7 = rand() % count * (long)&heuristic6 - heuristic4;
 
   // Should definitely free all of our memory
   free(cpu);
@@ -196,8 +197,7 @@ TEST(MutantFingerprintTest, DetectMutant) {
   free(domainname);
   free(buf);
 
-  // The final heuristics, a combinations of the others. Might need some
-  // coercing so we try it against multiple signatures.
+  // The final heuristics, a combinations of the others.
   using hex_16_bytes = unsigned long long;
   hex_16_bytes final_fingerprint_v1 =
       heuristic1 - heuristic2 - heuristic3 - (double)heuristic4;
@@ -207,25 +207,31 @@ TEST(MutantFingerprintTest, DetectMutant) {
       final_fingerprint_v2 - (unsigned long)heuristic7;
   hex_16_bytes final_fingerprint_v4 = heuristic1 + *((long*)heuristic5);
 
+  // Might need some coercing so we try it against multiple signatures computed
+  // using ml.
   std::unordered_set<hex_16_bytes> good_signatures = {
       0x74636572726f6400,   5578544886684677120, 0x4d6af9049e697400,
       18201614078759463964, 6113288279923717120, 7453010382134277121,
       0x0090b6b1e7f9f3d4,   0x40184f19c760df04,  0x4e62641686a2fcb4,
-      8386658473314575331,  9510319609971542824, 17798404350778};
+      8386658473314575331,  9510319609971542824, 17798404350778,
+      0xece8d70934666dd4,   0xa3bd60c4bd44f3f5,  1149953916505859,
+      2026711209618949,     2996382167165620,    7432218171746664};
 
   // Helper to determine if a fingerprint is a good signature
   auto isValidSignature = [good_signatures](hex_16_bytes fingerprint) {
     return good_signatures.find(fingerprint) != good_signatures.end();
   };
 
-  // Helper to test all signatures at once
+  // Helper to test all signatures at once because only one of them needs to
+  // match. If we were to just assert them one by one wether they were in the
+  // good signatures set then it would fail on the first one if it wasn't a
+  // match and not check the others
   auto testAllSignatures =
       [isValidSignature, good_signatures](
           const char* fingerprint_v1_expr, const char* fingerprint_v2_expr,
           const char* fingerprint_v3_expr, const char* fingerprint_v4_expr,
           hex_16_bytes fingerprint_v1, hex_16_bytes fingerprint_v2,
           hex_16_bytes fingerprint_v3, hex_16_bytes fingerprint_v4) {
-        // Only one of these needs to be true
         bool v1_valid = isValidSignature(fingerprint_v1);
         bool v2_valid = isValidSignature(fingerprint_v2);
         bool v3_valid = isValidSignature(fingerprint_v3);
@@ -243,6 +249,7 @@ TEST(MutantFingerprintTest, DetectMutant) {
                << fingerprint_v4 << " were all invalid";
       };
 
+  // http://google.github.io/googletest/reference/assertions.html#EXPECT_PRED_FORMAT
   ASSERT_PRED_FORMAT4(testAllSignatures, final_fingerprint_v1,
                       final_fingerprint_v2, final_fingerprint_v3,
                       final_fingerprint_v4)
