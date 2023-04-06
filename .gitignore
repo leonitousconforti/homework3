@@ -1,17 +1,2 @@
-date
-date_unittest
-stack
-stack_unittest
-lightrail
-lightrail_unittest
-shapes
-shapes_unittest
-queue
-queue_unittest
-clock
-clock_unittest
 tictactoe
 tictactoe_unittest
-
-backup.cc
-fingerprinting/fingerprinting
