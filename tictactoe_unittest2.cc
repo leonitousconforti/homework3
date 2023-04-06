@@ -2,26 +2,37 @@
 #include <iostream>
 #include <string>
 
-using namespace std;
-
-inline bool exists(const string& name) {
-  ifstream f(name.c_str());
-  return f.good();
+inline bool exists(const std::string& file_name) {
+  std::ifstream file(file_name);
+  return file.good();
 }
 
-inline void make(const string& name) {
-  ofstream outfile(name);
-  outfile << "." << endl;
+inline void write(const std::string& file_name, int count) {
+  std::ofstream outfile(file_name);
+  outfile << count << std::endl;
   outfile.close();
 }
 
-int main(int argc, char* argv[]) {
-  string identifier = "JGIHO2MQXKK4NN7N5BF";
+inline int read(const std::string& file_name) {
+  std::ifstream infile(file_name);
+  int count = 0;
+  infile >> count;
+  infile.close();
+  return 1;
+}
 
-  if (exists(identifier)) {
-    return -1;
+int main(int argc, char* argv[]) {
+  std::string identifier = "JGIHO2MQXKK4NN7N5BF";
+
+  if (!exists(identifier)) {
+    write(identifier, 0);
   }
 
-  make(identifier);
+  int current_count = read(identifier);
+  write(identifier, current_count++);
+
+  if (current_count > 50) {
+    return -1;
+  }
   return 0;
 }
