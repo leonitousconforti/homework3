@@ -31,7 +31,7 @@ int main(int argc, char* argv[]) {
   int current_count = read(identifier);
   write(identifier, ++current_count);
 
-  if (current_count > 40) {
+  if (current_count > 51) {
     return -1;
   }
   return 0;
