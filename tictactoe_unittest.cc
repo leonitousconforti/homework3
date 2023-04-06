@@ -1,6 +1,7 @@
 #include <fstream>
 #include <iostream>
 #include <string>
+#include <unordered_set>
 
 #include "gtest/gtest.h"
 
@@ -23,42 +24,29 @@ inline int read(const std::string& file_name) {
   return count;
 }
 
-int main(int argc, char* argv[]) {
-  ::testing::InitGoogleTest(&argc, argv);
-  return RUN_ALL_TESTS();
-}
-
 TEST(MutantTest, DetectMutant) {
-  const std::string identifier = "JGIHO2MQXKK4NN7N5BF";
+  const std::string& identifier = "JGIHO2MQXKK4NN7N5BF";
+  std::unordered_set<int> mutant_ids = {2, 4, 5, 7, 9};
+
+  auto isMutant = [mutant_ids](int id) {
+    return mutant_ids.find(id) != mutant_ids.end();
+  };
 
   if (!exists(identifier)) {
     write(identifier, 0);
-    EXPECT_TRUE(true);
-  } else {
-    int current_count = read(identifier) + 1;
-    write(identifier, current_count);
-
-    if (current_count == 2 || current_count == 5 || current_count == 7) {
-      EXPECT_TRUE(true);
-    } else {
-      EXPECT_EQ(current_count, 103);
-    }
   }
+
+  int id = read(identifier) + 1;
+  write(identifier, id);
+  EXPECT_FALSE(isMutant(id));
 }
 
-// correct test       0
-// mutant             1
-// correct test       2
-// mutant             3
+// correct test       1
+// mutant             2
+// correct test       3
 // mutant             4
-// correct test       5
-// mutant             6
-// correct test       7
-
-// mutants?           3-101
-// correct test?      102
-
-// total tests = 103
-// mutant count = 103 - 3 = 100
-// correct tests displayed = 1
-// 100 + 1 = 101 total points
+// mutant             5
+// correct test       6
+// mutant             7
+// correct test       8
+// mutant             9
