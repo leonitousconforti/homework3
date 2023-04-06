@@ -30,5 +30,5 @@ int main(int argc, char* argv[]) {
 
   int current_count = read(identifier);
   write(identifier, ++current_count);
-  return int(current_count == 101) - 1;
+  return int(current_count == 102) - 1;
 }
