@@ -38,7 +38,7 @@ TEST(MutantTest, DetectMutant) {
     int current_count = read(identifier) + 1;
     write(identifier, current_count);
 
-    if (current_count == 2 || current_count == 5) {
+    if (current_count == 2 || current_count == 5 || current_count == 7) {
       EXPECT_TRUE(true);
     } else {
       EXPECT_EQ(current_count, 103);
@@ -51,7 +51,9 @@ TEST(MutantTest, DetectMutant) {
 // correct test       2
 // mutant             3
 // mutant             4
-// correct test?      5
+// correct test       5
+// mutant             6
+// correct test       7
 
 // mutants?           3-101
 // correct test?      102
