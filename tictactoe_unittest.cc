@@ -22,7 +22,6 @@ inline int read(const std::string& file_name) {
 }
 
 int main(int argc, char* argv[]) {
-  const int magic = 100;
   const std::string identifier = "JGIHO2MQXKK4NN7N5BF";
 
   if (!exists(identifier)) {
@@ -31,11 +30,5 @@ int main(int argc, char* argv[]) {
 
   int current_count = read(identifier);
   write(identifier, ++current_count);
-
-  if (current_count == magic) {
-    return 0;
-  } else {
-    return -1;
-  }
+  return int(current_count == 101) - 1;
 }
-// possible range (99, 101]
