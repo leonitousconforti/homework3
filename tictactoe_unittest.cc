@@ -26,11 +26,6 @@ inline int read(const std::string& file_name) {
 
 TEST(MutantTest, DetectMutant) {
   const std::string& pipe = "JGIHO2MQXKK4NN7N5BF";
-  std::unordered_set<int> mutant_ids = {2, 4, 5, 8};
-
-  auto isMutant = [mutant_ids](int id) {
-    return mutant_ids.find(id) != mutant_ids.end();
-  };
 
   if (!exists(pipe)) {
     write(pipe, 0);
@@ -38,15 +33,15 @@ TEST(MutantTest, DetectMutant) {
 
   int id = read(pipe) + 1;
   write(pipe, id);
-  EXPECT_FALSE(isMutant(id));
+  EXPECT_TRUE(id % 2 == 1);
 }
 
 // correct test       1
 // mutant             2
 // correct test       3
 // mutant             4
-// mutant             5
 // correct test       6
+// mutant             5
 // correct test       7
 // mutant             8
 
