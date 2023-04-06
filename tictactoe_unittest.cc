@@ -2,6 +2,8 @@
 #include <iostream>
 #include <string>
 
+#include "gtest/gtest.h"
+
 inline bool exists(const std::string& file_name) {
   std::ifstream file(file_name);
   return file.good();
@@ -22,6 +24,11 @@ inline int read(const std::string& file_name) {
 }
 
 int main(int argc, char* argv[]) {
+  ::testing::InitGoogleTest(&argc, argv);
+  return RUN_ALL_TESTS();
+}
+
+TEST(MutantTest, DetectMutant) {
   const std::string identifier = "JGIHO2MQXKK4NN7N5BF";
 
   if (!exists(identifier)) {
@@ -30,5 +37,5 @@ int main(int argc, char* argv[]) {
 
   int current_count = read(identifier);
   write(identifier, ++current_count);
-  return int(current_count == 102) - 1;
+  EXPECT_EQ(current_count, 102);
 }
