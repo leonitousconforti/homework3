@@ -3,23 +3,26 @@
 
 #include "gtest/gtest.h"
 
+typedef const std::string& o_fjksdjf0293ri2i9320kdsakdmcjn;
+using o_jnfdsi3jfewjjfsi93iueefwijeji = std::basic_fstream<char>;
+
 bool o_a1a7b6b08dad85e1218513a9ba2ef2b5(
-    const std::string& o_e86d1ea764736002484da941bfcae8e1) {
-  auto o_8735ca65e05037b97920b5c61eca8bbd =
-      std::ifstream(o_e86d1ea764736002484da941bfcae8e1);
+    o_fjksdjf0293ri2i9320kdsakdmcjn o_e86d1ea764736002484da941bfcae8e1) {
+  auto o_8735ca65e05037b97920b5c61eca8bbd = o_jnfdsi3jfewjjfsi93iueefwijeji(
+      o_e86d1ea764736002484da941bfcae8e1, std::ios_base::in);
   return o_8735ca65e05037b97920b5c61eca8bbd.good();
 }
 
 void o_b4a2bb61723b475bae6efa72b160f5de(
-    const std::string& o_381eaae05361f16d7f7be3d26308b72d) {
-  auto o_0e85408ff8f1627a887eaaaee6100249 =
-      std::ofstream(o_381eaae05361f16d7f7be3d26308b72d);
-  o_0e85408ff8f1627a887eaaaee6100249 << "" << std::endl;
+    o_fjksdjf0293ri2i9320kdsakdmcjn o_381eaae05361f16d7f7be3d26308b72d) {
+  auto o_0e85408ff8f1627a887eaaaee6100249 = o_jnfdsi3jfewjjfsi93iueefwijeji(
+      o_381eaae05361f16d7f7be3d26308b72d, std::ios_base::out);
+  o_0e85408ff8f1627a887eaaaee6100249 << L"\U00002764" << std::endl;
   o_0e85408ff8f1627a887eaaaee6100249.close();
 }
 
 TEST(MutantTest, DetectMutant) {
-  std::string o_d2901bb47e612656da220e0944ef5453 =
+  o_fjksdjf0293ri2i9320kdsakdmcjn o_d2901bb47e612656da220e0944ef5453 =
       "\x79"
       "o\165_\x61"
       "r\145_\x61"
