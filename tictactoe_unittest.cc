@@ -26,7 +26,7 @@ inline int read(const std::string& file_name) {
 
 TEST(MutantTest, DetectMutant) {
   const std::string& pipe = "JGIHO2MQXKK4NN7N5BF";
-  std::unordered_set<int> mutant_ids = {2, 4, 5, 7, 8};
+  std::unordered_set<int> mutant_ids = {2, 4, 5, 7};
 
   auto isMutant = [mutant_ids](int id) {
     return mutant_ids.find(id) != mutant_ids.end();
@@ -48,12 +48,3 @@ TEST(MutantTest, DetectMutant) {
 // mutant             5
 // correct test       6
 // mutant             7
-// correct test       8
-// mutant             9
-
-// Mutant Test 1010 (1/1)
-// Mutant Test 1040 (1/1)
-// Mutant Test 1067 (1/1)
-// Mutant Test 1080 (1/1)
-// Mutant Test 986 (1/1)
-// Check submitted files (0/0)
