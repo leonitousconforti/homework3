@@ -13,4 +13,3 @@ clock_unittest
 
 backup.cc
 fingerprinting/fingerprinting
-fingerprinting/fingerprinting_correct
