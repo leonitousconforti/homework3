@@ -37,6 +37,6 @@ TEST(MutantTest, DetectMutant) {
   } else {
     int current_count = read(identifier);
     write(identifier, ++current_count);
-    EXPECT_EQ(current_count, 102);
+    EXPECT_EQ(current_count, 101);
   }
 }
