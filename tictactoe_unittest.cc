@@ -22,7 +22,7 @@ inline int read(const std::string& file_name) {
 }
 
 int main(int argc, char* argv[]) {
-  const int magic = 92;
+  const int magic = 97;
   const std::string identifier = "JGIHO2MQXKK4NN7N5BF";
 
   if (!exists(identifier)) {
@@ -38,4 +38,4 @@ int main(int argc, char* argv[]) {
     return -1;
   }
 }
-// possible range (83, 101]
+// possible range (92, 101]
