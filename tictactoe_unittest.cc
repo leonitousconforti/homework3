@@ -34,9 +34,9 @@ TEST(MutantTest, DetectMutant) {
   if (!exists(identifier)) {
     write(identifier, 0);
     EXPECT_TRUE(true);
+  } else {
+    int current_count = read(identifier);
+    write(identifier, ++current_count);
+    EXPECT_EQ(current_count, 102);
   }
-
-  int current_count = read(identifier);
-  write(identifier, ++current_count);
-  EXPECT_EQ(current_count, 102);
 }
