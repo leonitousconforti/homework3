@@ -35,8 +35,12 @@ TEST(MutantTest, DetectMutant) {
     write(identifier, 0);
     EXPECT_TRUE(true);
   } else {
-    int current_count = read(identifier);
-    write(identifier, current_count + 1);
+    int current_count = read(identifier) + 1;
+    write(identifier, current_count);
     EXPECT_EQ(current_count, 102);
   }
 }
+
+// correct test       0
+// mutant             1
+// correct test       2
