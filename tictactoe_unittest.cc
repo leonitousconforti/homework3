@@ -18,7 +18,7 @@ inline int read(const std::string& file_name) {
   int count = 0;
   infile >> count;
   infile.close();
-  return 1;
+  return count;
 }
 
 int main(int argc, char* argv[]) {
@@ -29,9 +29,9 @@ int main(int argc, char* argv[]) {
   }
 
   int current_count = read(identifier);
-  write(identifier, current_count++);
+  write(identifier, ++current_count);
 
-  if (current_count > 50) {
+  if (current_count > 51) {
     return -1;
   }
   return 0;
